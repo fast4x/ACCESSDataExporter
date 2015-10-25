@@ -1,0 +1,3 @@
+descr,dbtype,host,port,database,user,pass
+sql server,mssql,127.0.0.1\SQLEXPRESS2008,1436,test,si,si
+Postgres locale,postgresql-8,localhost,0,stes,postgres,postgres
