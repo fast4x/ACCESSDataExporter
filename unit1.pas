@@ -70,6 +70,7 @@ type
     PageControl1: TPageControl;
     MsgPanel: TPanel;
     ProgressBar1: TProgressBar;
+    RadioGroup1: TRadioGroup;
     SaveDialog1: TSaveDialog;
     SdfDataSet1: TSdfDataSet;
     SQLQuery1: TSQLQuery;
@@ -105,6 +106,7 @@ type
     procedure MenuItem4Click(Sender: TObject);
     procedure PQConnection1Log(Sender: TSQLConnection; EventType: TDBEventType;
       const Msg: String);
+    procedure RadioGroup1ChangeBounds(Sender: TObject);
     procedure SQLQuery1AfterPost(DataSet: TDataSet);
     procedure TabSheet2Show(Sender: TObject);
     procedure TabSheet3Show(Sender: TObject);
@@ -219,7 +221,7 @@ end;
 procedure TForm1.BitBtn7Click(Sender: TObject);
 begin
   if savedialog1.Execute then begin
-        showmessage(inttostr(savedialog1.FilterIndex));
+        //showmessage(inttostr(savedialog1.FilterIndex));
   if savedialog1.FilterIndex=2 then begin
           csvexporter1.FileName:=savedialog1.FileName;
           csvexporter1.Execute;
@@ -461,6 +463,9 @@ begin
 //  dbsrv.Close;
 //  dbsrv.FileName:=extractfilepath(application.exename)+'servers.csv';
 //  dbsrv.Open;
+
+RadioGroup1ChangeBounds(Sender);
+
 end;
 
 procedure TForm1.FPDBFExport1ExportRow(Sender: TObject; var AllowExport: Boolean
@@ -493,6 +498,18 @@ procedure TForm1.PQConnection1Log(Sender: TSQLConnection;
   EventType: TDBEventType; const Msg: String);
 begin
   showmessage(msg);
+end;
+
+procedure TForm1.RadioGroup1ChangeBounds(Sender: TObject);
+begin
+//  SHOWMESSAGE(inttostr(radiogroup1.ItemIndex));
+  odbcconnection1.Connected:=false;
+  listbox1.Items.Clear;
+
+  if radiogroup1.ItemIndex = 0 then
+     odbcconnection1.Driver:='Microsoft Access Driver (*.mdb, *.accdb)';
+   if radiogroup1.ItemIndex = 1 then
+     odbcconnection1.Driver:='Microsoft Access Driver (*.mdb)';
 end;
 
 procedure TForm1.SQLQuery1AfterPost(DataSet: TDataSet);
